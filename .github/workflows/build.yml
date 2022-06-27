@@ -30,7 +30,9 @@ jobs:
           ./configure
           make
           make install
+          export LDFLAGS=-lrt
           cmake .. -DCMAKE_BUILD_TYPE=Release -DUV_LIBRARY=/usr/lib64/libuv.a
+          # cmake .. -DUV_INCLUDE_DIR=path/to/libuv/include -DUV_LIBRARY=path/to/libuv.a
           cd ..
           echo "XMRIG_VERSION="`cat src/version.h | grep -Eo "APP_VERSION\s+\"(.+?)\"" | awk -F "\"" '{print $2}'` >> $GITHUB_ENV
           mkdir build
