@@ -8,7 +8,7 @@ on:
         required: true
         default: 'warning'
       tags:
-        description: 'Buid Actions'
+        description: 'Buid Actions Tag'
 
 
 jobs:
@@ -25,6 +25,12 @@ jobs:
       - name: Build
         run: |
           apk add git make cmake libstdc++ gcc g++ automake libtool autoconf linux-headers
+          git clone https://github.com/open-mpi/hwloc.git
+          ./autogen.sh
+          ./configure
+          make
+          make install
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DUV_LIBRARY=/usr/lib64/libuv.a
           echo "XMRIG_VERSION="`cat src/version.h | grep -Eo "APP_VERSION\s+\"(.+?)\"" | awk -F "\"" '{print $2}'` >> $GITHUB_ENV
           mkdir build
           cd scripts && ./build_deps.sh && cd ../build
