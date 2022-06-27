@@ -23,7 +23,7 @@ jobs:
 
       - name: Build
         run: |
-          apk add git make cmake libstdc++ gcc g++ automake libtool autoconf linux-headers bash
+          apk add git make cmake libstdc++ gcc g++ automake libtool autoconf linux-headers bash openssl-dev
          
           git clone https://github.com/libuv/libuv.git
           cd libuv
